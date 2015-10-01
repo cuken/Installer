@@ -48,17 +48,22 @@ namespace Installer
             Startup();
             Application.Application main = new Application.Application("main", iniPath);
             LoadApplications();
+            wtc.WriteGreenLine("Startup Complete, launching into main menu");
+
+            bool running = true;
 
             wtc.WriteWhiteLine("======================");
             wtc.WriteWhiteLine("= Installer v0.0.0.1 =");
             wtc.WriteWhiteLine("======================");
-            wtc.WriteBlue(">");
-            wtc.WriteWhite(" ");
-            string input = Console.ReadLine().ToLower().Trim();
-            while (input != "exit" && input != "quit" && input != "q" && input != "x")
+
+            do
             {
+                wtc.WriteBlue(">");
+                wtc.WriteWhite(" ");
+                string input = Console.ReadLine().ToLower().Trim();
+
                 //receives user input, switch off of it;
-                switch(input)
+                switch (input)
                 {
                     case "help":
                         Menu.Help();
@@ -73,23 +78,21 @@ namespace Installer
                         Menu.Settings(main);
                         break;
                     case "quit":
-                        logger.Debug("Exiting due to user input");
-                        Menu.Quit();
-                        break;
+                    case "q":
                     case "exit":
+                    case "x":
                         logger.Debug("Exiting due to user input");
-                        Menu.Quit();
+                        running = false;
                         break;
                     default:
                         Menu.Help();
                         break;
                 }
-                wtc.WriteBlue(">");
-                wtc.WriteWhite(" ");
-                input = Console.ReadLine();
             }
-
-            Console.Read();
+            while (running);
+            {
+                Console.Read();
+            }                
         }
 
         void Startup()
@@ -461,7 +464,7 @@ namespace Installer
 
         void LoadApplications()
         {
-            wtc.WriteWhite("[Apps] Scanning for Applications");
+            wtc.WriteWhiteLine("[Apps] Scanning for Applications");
             logger.Debug("Scanning for Applications in " + appDir);
 
             ICollection<string> directories = Directory.GetDirectories(appDir);
@@ -470,7 +473,7 @@ namespace Installer
             {
                 wtc.WriteYellowLine("[WARNING] 0 applications discovered in " + appDir);
                 wtc.WriteRedLine("[WARNING] Installer needs applications in order to function");
-                wtc.WriteWhite("Please check INI file for correct Application Directory. To create a new Application go to the Application Menu from Main");
+                wtc.WriteWhiteLine("Please check INI file for correct Application Directory. To create a new Application go to the Application Menu from Main");
                 logger.Warn("0 Applications found in " + appDir);
             }
             else
@@ -500,7 +503,6 @@ namespace Installer
                     
                 }
             }
-
             
         }
 
