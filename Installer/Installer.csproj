@@ -49,9 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\Application.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\INI.cs" />
+    <Compile Include="Utilities\Menu.cs" />
     <Compile Include="Utilities\WTC.cs" />
   </ItemGroup>
   <ItemGroup>

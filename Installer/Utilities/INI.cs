@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Installer
+namespace Installer.Utilities
 {
     class INI
     {
