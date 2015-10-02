@@ -26,6 +26,7 @@ namespace Installer
         string sourceDir = "";
         string toolDir = "";
         bool bLogToConsole = false;
+        bool bClearBeforeMenu = true;
         bool bPsexecMissing = false;
 
 
@@ -50,6 +51,9 @@ namespace Installer
             Application.ApplicationCollection.AddApplication(main);
             LoadApplications();
             wtc.WriteGreenLine("Startup Complete, launching into main menu");
+
+            if (bClearBeforeMenu)
+                Console.Clear();
 
             bool running = true;
 
@@ -97,7 +101,6 @@ namespace Installer
             }
             while (running);
             {
-                Console.Read();
             }                
         }
 
@@ -120,6 +123,7 @@ namespace Installer
                     ini.Section("General").Set("AppDir", Environment.CurrentDirectory + "\\Applications");
                     ini.Section("General").Set("SourceDir", Environment.CurrentDirectory + "\\Source");
                     ini.Section("General").Set("ToolDir", Environment.CurrentDirectory + "\\Tools");
+                    ini.Section("Optional").Set("ClearBeforeMain", "True", "This will clear the console before displaying main menu");
                     ini.Save(iniPath);
                 }
 
@@ -149,6 +153,19 @@ namespace Installer
                 toolDir = ini.Section("General").Get("ToolDir");
                 wtc.WriteWhite("[STARTUP] Tool Directory: ");
                 wtc.WriteGreen(toolDir + "\n");
+
+                //Optional INI settings
+                //WE don't care if their missing, just to tailor the experience to each user;
+                wtc.WriteWhiteLine("[STARTUP] Checking for optional INI settings");
+                try
+                {
+                    wtc.WriteWhite("[OPTIONAL] Checking for ClearBeforeMain");
+                    bClearBeforeMenu = Boolean.Parse(ini.Section("Optional").Get("ClearBeforeMain"));
+                }
+                catch
+                {
+
+                }
 
                 //Checking for Logging directory first so we can log missing folder structure later.
                 if (!Directory.Exists(logDir))
