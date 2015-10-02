@@ -3,6 +3,8 @@ CLI C# Remote Installer Application
 
 The goal of Installer is to provide a consistant framework for Sys Admins to use for remote deployment tasks in their environment.
 
+Please visit the [wiki](https://github.com/cuken/Installer/wiki) for more information outside of the readme.
+
 ## Model
 Installer treats all possible actions against your environment as an **Application**.
 
