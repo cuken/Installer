@@ -7,15 +7,17 @@ namespace Installer.Application
 {
     public class Application
     {
-        public string name;
-        public string iniPath;        
+        public string Name;
+        public string IniPath;
+        public string Directory;
         WTC wtc = new WTC();
         INI.IniFile iniFile;
 
-        public Application(string Name, string IniPath)
+        public Application(string name, string iniPath)
         {
-            name = Name;
-            iniPath = IniPath;
+            Name = name;            
+            IniPath = iniPath;
+            Directory = iniPath.Substring(0, iniPath.LastIndexOf('\\'));
             iniFile = new INI.IniFile(iniPath);
         }
 
@@ -59,7 +61,7 @@ namespace Installer.Application
                             value.TrimEnd();
                             iniFile.Section(Section.Name).Set(property.Name, value, "Changed by Installer");
                             wtc.WriteGreenLine("Modified INI -> OK");
-                            iniFile.Save(iniPath);
+                            iniFile.Save(IniPath);
                         }
                     }
                     if(!propertyFound)
@@ -84,9 +86,27 @@ namespace Installer.Application
             applications.Add(app);
         }
 
+        public static void RemoveApplication(Application app)
+        {
+            applications.Remove(app);
+        }
+
+        public static Application GetSpecificApplication(string app)
+        {
+            foreach(Application p in applications)
+            {
+                if(app.ToLower().Trim() == p.Name.ToLower().Trim())
+                {
+                    return p;
+                }
+            }
+            return null;
+        }
+
         public static ICollection<Application> GetApplications()
         {
             return applications;
         }
+
     }
 }

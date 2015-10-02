@@ -25,7 +25,7 @@ namespace Installer
         string appDir = "";
         string sourceDir = "";
         string toolDir = "";
-        bool blogToConsole = false;
+        bool bLogToConsole = false;
         bool bPsexecMissing = false;
 
 
@@ -47,6 +47,7 @@ namespace Installer
             //Call Startup to initialze our application;
             Startup();
             Application.Application main = new Application.Application("main", iniPath);
+            Application.ApplicationCollection.AddApplication(main);
             LoadApplications();
             wtc.WriteGreenLine("Startup Complete, launching into main menu");
 
@@ -74,6 +75,11 @@ namespace Installer
                     case "clear":
                         Console.Clear();
                         break;
+                    case "application":
+                    case "applications":
+                        Menu.Applications();
+                        break;
+                    case "setting":
                     case "settings":
                         Menu.Settings(main);
                         break;
@@ -125,9 +131,9 @@ namespace Installer
                 logLevel = ini.Section("General").Get("LogLevel");
                 wtc.WriteWhite("[STARTUP] LogLevel: ");
                 wtc.WriteGreen(logLevel + "\n");
-                blogToConsole = Boolean.Parse(ini.Section("General").Get("LogToConsole"));
+                bLogToConsole = Boolean.Parse(ini.Section("General").Get("LogToConsole"));
                 wtc.WriteWhite("[STARTUP] LogToConsole: ");
-                wtc.WriteGreen(blogToConsole.ToString() + "\n");
+                wtc.WriteGreen(bLogToConsole.ToString() + "\n");
                 consoleLogLevel = ini.Section("General").Get("ConsoleLogLevel");
                 wtc.WriteWhite("[STARTUP] ConsoleLogLevel: ");
                 wtc.WriteGreen(consoleLogLevel + "\n");
@@ -212,7 +218,7 @@ namespace Installer
 
                 config.LoggingRules.Add(rule_LTF);
 
-                if (blogToConsole)
+                if (bLogToConsole)
                 {
                     var consoleTarget = new ColoredConsoleTarget();
                     config.AddTarget("console", consoleTarget);
@@ -258,7 +264,7 @@ namespace Installer
                 else
                 {
                     wtc.WriteWhite("[STARTUP] LogToConsole set to: ");
-                    wtc.WriteRed(blogToConsole.ToString());
+                    wtc.WriteRed(bLogToConsole.ToString());
                     wtc.WriteWhiteLine(" - Skipping level check");
                 }
 
@@ -272,7 +278,7 @@ namespace Installer
 
                 logger.Debug("Exporting settings to log");
                 logger.Debug("LogLevel: " + logLevel);
-                logger.Debug("LogToConsole " + blogToConsole.ToString());
+                logger.Debug("LogToConsole " + bLogToConsole.ToString());
                 logger.Debug("ConsoleLogLevel: " + consoleLogLevel);
                 logger.Debug("LogDir: " + logDir);
                 logger.Debug("AppDir: " + appDir);
@@ -405,25 +411,25 @@ namespace Installer
                 {
                     //APPDIR
                     logger.Debug("Creating file TEST in " + appDir);
-                    File.WriteAllText(appDir + "\\test", "");
-                    logger.Debug(appDir + "\\test" + " - File Created!");
-                    logger.Debug("Deleting File " + appDir + "\\test");
-                    File.Delete(appDir + "\\test");
-                    logger.Debug(appDir + "\\test" + " - File Deleted!");
+                    File.WriteAllText(appDir + "\\test.test", "");
+                    logger.Debug(appDir + "\\test.test" + " - File Created!");
+                    logger.Debug("Deleting File " + appDir + "\\test.test");
+                    File.Delete(appDir + "\\test.test");
+                    logger.Debug(appDir + "\\test.test" + " - File Deleted!");
                     //SOURCEDIR
                     logger.Debug("Creating file TEST in " + sourceDir);
-                    File.WriteAllText(sourceDir + "\\test", "");
-                    logger.Debug(sourceDir + "\\test" + " - File Created!");
-                    logger.Debug("Deleting File " + sourceDir + "\\test");
-                    File.Delete(sourceDir + "\\test");
-                    logger.Debug(sourceDir + "\\test" + " - File Deleted!");
+                    File.WriteAllText(sourceDir + "\\test.test", "");
+                    logger.Debug(sourceDir + "\\test.test" + " - File Created!");
+                    logger.Debug("Deleting File " + sourceDir + "\\test.test");
+                    File.Delete(sourceDir + "\\test.test");
+                    logger.Debug(sourceDir + "\\test.test" + " - File Deleted!");
                     //TOOLDIR
                     logger.Debug("Creating file TEST in " + toolDir);
-                    File.WriteAllText(toolDir + "\\test", "");
-                    logger.Debug(toolDir + "\\test" + " - File Created!");
-                    logger.Debug("Deleting File " + toolDir + "\\test");
-                    File.Delete(toolDir + "\\test");
-                    logger.Debug(toolDir + "\\test" + " - File Deleted!");
+                    File.WriteAllText(toolDir + "\\test.test", "");
+                    logger.Debug(toolDir + "\\test.test" + " - File Created!");
+                    logger.Debug("Deleting File " + toolDir + "\\test.test");
+                    File.Delete(toolDir + "\\test.test");
+                    logger.Debug(toolDir + "\\test.test" + " - File Deleted!");
                 }
                 catch (Exception ex)
                 {

@@ -74,6 +74,18 @@ namespace Installer.Utilities
             Console.WriteLine(message);
         }
 
+        public void WriteMagenta(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Write(message);
+        }
+
+        public void WriteMagentaLine(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine(message);
+        }
+
         public void WriteBlue(string message)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
