@@ -21,13 +21,15 @@ Installer treats all possible actions against your environment as an **Applicati
 
 ### Jobs
 
-**Jobs** act as the instructions for the **Applications**. **Jobs** will use the settings applied in their specific INI as well inherit relevent settings from the **Applicaiton** settings ini.
+**Jobs** act as the instructions for the **Applications**.
 
-**Jobs** are the actual drivers of change in the environment: Example of what jobs can do are;
+**Jobs** will use the settings applied in their specific INI as well inherit relevent settings from the **Applicaiton** settings ini.
 
-*Example:* Install Chrome on 100 PC's
-*Example:* Query WMI for a specific Key
-*Example:* Uninstall an application if it's a specific version
+**Jobs** are the actual drivers of change in the environment: Some examples of what jobs can do;
+
+- *Example:* Install Chrome on 100 PC's
+- *Example:* Query WMI for a specific Key
+- *Example:* Uninstall an application if it's a specific version
 
 ### Results
 
